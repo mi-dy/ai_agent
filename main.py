@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
+from call_function import available_functions 
 from prompts import system_prompt
 
 def main():
@@ -24,8 +25,8 @@ def main():
     response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=messages,
-            config=types.GenerateContentConfig(system_instruction=system_prompt, temperature=0),
-            )
+            config=types.GenerateContentConfig(system_instruction=system_prompt, temperature=0, tools=[available_functions]),
+                        )
 
     if args.verbose == True:
         print(f"User prompt: {args.user_prompt}")
