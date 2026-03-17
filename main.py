@@ -32,7 +32,12 @@ def main():
         print(f"User prompt: {args.user_prompt}")
         print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
         print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
-    print(response.text)
+
+    if response.function_calls != None:
+        for obj in response.function_calls:
+            print(f"Calling function: {obj.name}({obj.args})")
+    else:
+        print(response.text)
 
 
 if __name__ == "__main__":
